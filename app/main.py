@@ -38,21 +38,21 @@ def render_sidebar():
 
         # API Key input
         api_key = st.text_input(
-            "OpenAI API Key",
+            "Google Gemini API Key",
             type="password",
-            placeholder="sk-...",
-            help="Your OpenAI API key. Get one at platform.openai.com"
+            placeholder="AIzaSy...",
+            help="Your Google Gemini API key. Get one at aistudio.google.com"
         )
 
         if api_key:
-            os.environ["OPENAI_API_KEY"] = api_key
+            os.environ["GOOGLE_API_KEY"] = api_key
 
         # Model selection
         model = st.selectbox(
             "LLM Model",
-            options=["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"],
+            options=["gemini-3.6-flash", "gemini-2.5-flash", "gemini-2.5-pro"],
             index=0,
-            help="Select the model for generating responses"
+            help="Select the Gemini model for generating responses"
         )
 
         # Chunk settings
@@ -93,8 +93,8 @@ def render_sidebar():
         if uploaded_files:
             new_files = [f.name for f in uploaded_files]
             if st.button("🚀 Process Documents", use_container_width=True):
-                if not api_key:
-                    st.error("Please enter your OpenAI API key first.")
+                if not api_key and not os.environ.get("GOOGLE_API_KEY"):
+                    st.error("Please enter your Google Gemini API key first.")
                     return None, None, None
 
                 with st.spinner("Processing documents..."):

@@ -17,9 +17,9 @@ def get_config() -> dict:
         Dictionary with configuration values.
     """
     return {
-        "openai_api_key": os.getenv("OPENAI_API_KEY", ""),
-        "model_name": os.getenv("MODEL_NAME", "gpt-4o-mini"),
-        "embedding_model": os.getenv("EMBEDDING_MODEL", "text-embedding-3-small"),
+        "google_api_key": os.getenv("GOOGLE_API_KEY", ""),
+        "model_name": os.getenv("MODEL_NAME", "gemini-2.0-flash"),
+        "embedding_model": os.getenv("EMBEDDING_MODEL", "models/text-embedding-004"),
         "chunk_size": int(os.getenv("CHUNK_SIZE", "1000")),
         "chunk_overlap": int(os.getenv("CHUNK_OVERLAP", "200")),
         "top_k": int(os.getenv("TOP_K", "4")),

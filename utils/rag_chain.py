@@ -3,7 +3,8 @@ RAG Chain module.
 Handles vector store creation, retrieval, and LLM-powered Q&A.
 """
 
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -31,15 +32,17 @@ Answer the user's question based on the above context."""
 class RAGChain:
     """Manages the RAG pipeline: embeddings, vector store, and query chain."""
 
-    def __init__(self, model_name: str = "gpt-4o-mini"):
+    def __init__(self, model_name: str = "gemini-3.6-flash"):
         """
         Initialize the RAG chain.
         
         Args:
-            model_name: OpenAI model to use for generation.
+            model_name: Google Gemini model to use for generation.
         """
         self.model_name = model_name
-        self.embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+        self.embeddings = HuggingFaceEmbeddings(
+            model_name="all-MiniLM-L6-v2"
+        )
         self.vector_store = None
         self.retriever = None
         self.chain = None
@@ -74,10 +77,9 @@ class RAGChain:
         )
 
         # Create LLM
-        llm = ChatOpenAI(
+        llm = ChatGoogleGenerativeAI(
             model=self.model_name,
-            temperature=0.1,
-            streaming=True
+            temperature=0.1
         )
 
         # Create prompt
