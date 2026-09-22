@@ -170,7 +170,7 @@ The retrieved chunks are formatted into a context string and passed to the LLM a
 
 ## Screenshots
 
-> *Screenshots of the application coming soon.*
+![DocChat AI Demo](screenshots/Demo.png)
 
 ---
 
